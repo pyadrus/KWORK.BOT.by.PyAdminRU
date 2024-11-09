@@ -14,8 +14,6 @@ from exceptions import KworkException, KworkBotException
 from all import *
 from message import Message
 
-# from kwork.exceptions import KworkException, KworkBotException
-
 logger = logging.getLogger(__name__)
 Handler = collections.namedtuple(
     "Handler", ["func", "text", "on_start", "text_contains"]
