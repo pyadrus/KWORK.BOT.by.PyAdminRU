@@ -2,6 +2,9 @@ import os
 from dotenv import load_dotenv
 from groq import Groq
 
+
+
+
 def data_analysis(project):
     """Анализ данных с помощью ИИ"""
 
@@ -19,7 +22,7 @@ def data_analysis(project):
                 "content": f"Что хочет заказчик? Ответ должен содержать максимум 1 предложение: {project}",
             }
         ],
-        model="gemma2-9b-it",
+        model="llama3-groq-70b-8192-tool-use-preview",
     )
 
     print(chat_completion.choices[0].message.content)

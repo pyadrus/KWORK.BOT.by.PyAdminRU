@@ -4,10 +4,10 @@ import os
 import time
 
 from dotenv import load_dotenv
+from loguru import logger
 
 from ai import data_analysis
 from kwork import Kwork
-from loguru import logger
 
 load_dotenv()  # Загрузка переменных окружения из .env файла
 
@@ -37,6 +37,9 @@ async def receiving_projects_in_the_selected_category(api):
     for project in projects:
         logger.info(project)
         data_analysis(project)
+
+        #await main_module(project)
+
         time.sleep(5)
 
 
