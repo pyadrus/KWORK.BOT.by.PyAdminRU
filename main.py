@@ -2,6 +2,8 @@ import asyncio
 import json
 import os
 import time
+from tkinter import *
+from tkinter import ttk
 
 from dotenv import load_dotenv
 from loguru import logger
@@ -38,34 +40,45 @@ async def receiving_projects_in_the_selected_category(api):
         logger.info(project)
         data_analysis(project)
 
-        # await main_module(project)
-
         time.sleep(5)
 
 
-async def main():
-    if not login or not password:  # Проверка, если логин и пароль не пустые
-        logger.info("Ошибка: Логин и/или пароль не найдены в .env файле.")
-        return
+def run_async_function(coroutine):
+    """Запуск асинхронной функции в GUI"""
+    try:
+        loop = asyncio.get_running_loop()  # Получаем текущий активный событийный цикл
+    except RuntimeError:
+        loop = asyncio.new_event_loop()  # Создаем новый цикл, если нет активного
+        asyncio.set_event_loop(loop)
 
-    api = Kwork(login=login, password=password)  # Создание экземпляра Kwork с логином и паролем
-
-    print(
-        "\n1. Получение списка категорий"
-        "\n2. Получение проектов в выбранной категории"
-    )
-
-    user_input = input("Выберите функцию: ")
-
-    if user_input == "1":
-        await getting_categories(api)
-    elif user_input == "2":
-        await receiving_projects_in_the_selected_category(api)
+    if loop.is_running():
+        asyncio.ensure_future(coroutine)
     else:
-        logger.info("Ошибка: Выбранная функция не найдена.")
-
-    await api.close()  # Закрытие соединения с API
+        loop.run_until_complete(coroutine)
 
 
-if __name__ == "__main__":
-    asyncio.run(main())  # Запуск основного асинхронного цикла
+async def getting_categories_gui():
+    api = Kwork(login=login, password=password)
+    await getting_categories(api)
+    await api.close()
+
+
+async def receiving_projects_in_the_selected_category_gui():
+    api = Kwork(login=login, password=password)
+    await receiving_projects_in_the_selected_category(api)
+    await api.close()
+
+
+root = Tk()  # создаем корневой объект - окно
+root.title("KWORK_BOT_by_PyAdminRU")  # устанавливаем заголовок окна
+root.geometry("300x250")  # устанавливаем размеры окна
+
+# стандартная кнопка
+btn = ttk.Button(text="Получение списка категорий", command=lambda: run_async_function(getting_categories_gui()))
+btn.pack()
+
+btn_1 = ttk.Button(text="Получение проектов в выбранной категории",
+                   command=lambda: run_async_function(receiving_projects_in_the_selected_category_gui()))
+btn_1.pack()
+
+root.mainloop()
