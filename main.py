@@ -9,8 +9,6 @@ from loguru import logger
 from ai import data_analysis
 from kwork.kwork import Kwork
 
-# from kwork import Kwork
-
 load_dotenv()  # Загрузка переменных окружения из .env файла
 
 # Получение данных для авторизации из переменных окружения
@@ -40,7 +38,7 @@ async def receiving_projects_in_the_selected_category(api):
         logger.info(project)
         data_analysis(project)
 
-        #await main_module(project)
+        # await main_module(project)
 
         time.sleep(5)
 
@@ -54,7 +52,9 @@ async def main():
 
     print(
         "\n1. Получение списка категорий"
-        "\n2. Получение проектов в выбранной категории")
+        "\n2. Получение проектов в выбранной категории"
+    )
+
     user_input = input("Выберите функцию: ")
 
     if user_input == "1":

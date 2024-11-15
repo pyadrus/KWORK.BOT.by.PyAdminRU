@@ -3,8 +3,6 @@ from dotenv import load_dotenv
 from groq import Groq
 
 
-
-
 def data_analysis(project):
     """Анализ данных с помощью ИИ"""
 
