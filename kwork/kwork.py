@@ -8,11 +8,13 @@ from typing import Optional, Union
 import websockets
 import aiohttp
 
-from actor import Actor
-from event import BaseEvent, EventType, Notify
-from exceptions import KworkException, KworkBotException
-from all import *
-from message import Message
+from kwork.actor import Actor
+from kwork.event import BaseEvent, EventType, Notify
+from kwork.exceptions import KworkException, KworkBotException
+from kwork.all import *
+from kwork.message import Message
+
+# from message import Message
 
 logger = logging.getLogger(__name__)
 Handler = collections.namedtuple(

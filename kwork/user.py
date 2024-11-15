@@ -2,8 +2,9 @@ from typing import List, Optional
 
 from pydantic import BaseModel
 
-from achievement import Achievement
-from kwork_object import KworkObject
+from kwork.kwork import Achievement
+from kwork.kwork_object import KworkObject
+# from kwork.kwork import KworkObject
 from review import Review
 
 

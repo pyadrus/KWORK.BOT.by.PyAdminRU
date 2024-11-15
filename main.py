@@ -7,7 +7,9 @@ from dotenv import load_dotenv
 from loguru import logger
 
 from ai import data_analysis
-from kwork import Kwork
+from kwork.kwork import Kwork
+
+# from kwork import Kwork
 
 load_dotenv()  # Загрузка переменных окружения из .env файла
 

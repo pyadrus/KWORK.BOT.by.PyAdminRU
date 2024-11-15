@@ -2,7 +2,7 @@ from typing import List
 
 from pydantic import BaseModel
 
-from achievement import Achievement
+from kwork.achievement import Achievement
 
 
 class Project(BaseModel):

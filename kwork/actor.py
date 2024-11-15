@@ -2,10 +2,14 @@ from typing import Optional, List
 
 from pydantic import BaseModel, Field
 
-from achievement import Achievement
-from kwork_object import KworkObject
-from portfolio import PortfolioItem
-from review import Review
+from kwork.achievement import Achievement
+from kwork.kwork_object import KworkObject
+from kwork.portfolio import PortfolioItem
+from kwork.review import Review
+
+
+# from portfolio import PortfolioItem
+# from review import Review
 
 
 class Actor(BaseModel):
