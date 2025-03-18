@@ -1,17 +1,15 @@
-import os
-from dotenv import load_dotenv
 from groq import Groq
+
+from config import GROQ_API_KEY
+from proxy_config import setup_proxy
 
 
 def data_analysis(project):
     """Анализ данных с помощью ИИ"""
 
-    load_dotenv()  # Загрузка переменных окружения из .env файла
+    setup_proxy()
 
-    api_key = os.getenv("GROQ_API_KEY")
-    print(api_key)
-
-    client = Groq(api_key=api_key)
+    client = Groq(api_key=GROQ_API_KEY)
 
     chat_completion = client.chat.completions.create(
         messages=[

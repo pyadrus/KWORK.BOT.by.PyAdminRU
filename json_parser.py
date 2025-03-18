@@ -1,4 +1,5 @@
 import json
+
 from loguru import logger
 
 # Чтение содержимого файла projects.json с указанием кодировки
