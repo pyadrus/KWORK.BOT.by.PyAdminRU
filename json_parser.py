@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 
 from loguru import logger

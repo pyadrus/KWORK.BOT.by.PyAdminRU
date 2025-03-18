@@ -1,21 +1,13 @@
+# -*- coding: utf-8 -*-
 import asyncio
 import json
 import time
-from tkinter import *
-from tkinter import ttk
 
 from loguru import logger
 
 from ai import data_analysis
 from config import login, password
 from kwork.kwork import Kwork
-
-
-async def getting_categories_gui():
-    """Получение списка категорий"""
-    api = Kwork(login=login, password=password)
-    await getting_categories(api)
-    await api.close()
 
 
 async def getting_categories(api):
@@ -46,43 +38,25 @@ async def receiving_projects_in_the_selected_category(api):
     for project in projects:
         logger.info(project)
         data_analysis(project)
-
         time.sleep(5)
 
 
-def run_async_function(coroutine):
-    """Запуск асинхронной функции в GUI"""
-    try:
-        loop = asyncio.get_running_loop()  # Получаем текущий активный событийный цикл
-    except RuntimeError:
-        loop = asyncio.new_event_loop()  # Создаем новый цикл, если нет активного
-        asyncio.set_event_loop(loop)
+async def main():
+    """Главное меню программы"""
+    print("Главное меню программы\n",
+          "1. Получение списка категорий\n",
+          "2. Получение проектов в выбранной категории\n")
 
-    if loop.is_running():
-        asyncio.ensure_future(coroutine)
+    input_data = input("Введите номер пункта меню: ")
+    if input_data == "1":
+        api = Kwork(login=login, password=password)
+        await getting_categories(api)
+        await api.close()
+    elif input_data == "2":
+        await receiving_projects_in_the_selected_category_gui()
     else:
-        loop.run_until_complete(coroutine)
+        print("Неверный пункт меню")
 
 
-async def settings_gui():
-    """Настройки программы"""
-    pass
-
-
-root = Tk()  # создаем корневой объект - окно
-root.title("KWORK_BOT_by_PyAdminRU")  # устанавливаем заголовок окна
-root.geometry("350x250")  # устанавливаем размеры окна
-
-# стандартная кнопка
-btn = ttk.Button(text="Получение списка категорий", width=50,
-                 command=lambda: run_async_function(getting_categories_gui()))
-btn.pack()
-
-btn_1 = ttk.Button(text="Получение проектов в выбранной категории", width=50,
-                   command=lambda: run_async_function(receiving_projects_in_the_selected_category_gui()))
-btn_1.pack()
-
-btn_2 = ttk.Button(text="Настройки", width=50,
-                   command=lambda: run_async_function(settings_gui()))
-btn_2.pack()
-root.mainloop()
+if __name__ == '__main__':
+    asyncio.run(main())

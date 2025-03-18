@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from g4f.client import Client
 
 

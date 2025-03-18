@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from groq import Groq
 
 from config import GROQ_API_KEY
@@ -18,7 +19,7 @@ def data_analysis(project):
                 "content": f"Что хочет заказчик? Ответ должен содержать максимум 1 предложение: {project}",
             }
         ],
-        model="llama3-groq-70b-8192-tool-use-preview",
+        model="qwen-2.5-32b",
     )
 
     print(chat_completion.choices[0].message.content)
